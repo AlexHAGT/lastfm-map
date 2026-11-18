@@ -30,7 +30,9 @@ const pixelsPochettes = new Map(); // pochettes déjà chargées (évite de les 
 async function charger() {
   let donnees;
   try {
-    const reponse = await fetch('/api/tracks');
+    // Adresse relative (sans « / » au début) : marche aussi quand le site est servi
+    // sous /lastfm/ sur le serveur (elle devient alors /lastfm/api/tracks)
+    const reponse = await fetch('api/tracks');
     donnees = await reponse.json();
     if (!reponse.ok) {
       // Erreur propre renvoyée par notre serveur (ex. 503 : Last.fm en panne, rien en cache)

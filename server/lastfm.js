@@ -60,8 +60,9 @@ function nettoyerMorceau(t) {
     titre: t.name,
     artiste: t.artist['#text'],
     album: t.album['#text'],
-    // L'image passe par NOTRE serveur (/api/cover) : le navigateur ne contacte pas Last.fm
-    pochette: image ? '/api/cover?url=' + encodeURIComponent(image) : null,
+    // L'image passe par NOTRE serveur (/api/cover) : le navigateur ne contacte pas Last.fm.
+    // Adresse relative pour marcher aussi sous /lastfm/ sur le serveur.
+    pochette: image ? 'api/cover?url=' + encodeURIComponent(image) : null,
     // Le morceau en cours d'écoute n'a pas de date
     date: t.date ? Number(t.date.uts) : null,
     enCours: Boolean(t['@attr'] && t['@attr'].nowplaying === 'true'),

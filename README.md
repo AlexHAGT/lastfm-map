@@ -6,6 +6,8 @@ and the territory gets bigger each time I play a song from this album.
 When I listen to a new album, a new territory appears on the map.
 With the timeline under the map, you can go back in time and replay how my day of music grew.
 
+**Online:** https://student12.wt.thomasjuldo.com/lastfm/
+
 ## What you need
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Docker Compose is included)
@@ -19,6 +21,25 @@ docker compose up --build
 ```
 
 Then open <http://localhost:3000>.
+
+## On the server
+
+The app runs on the same server as my other project,
+[visit-counter](https://github.com/AlexHAGT/visit-counter). Its Caddy receives all the visitors
+and sends the requests starting with `/lastfm/` to this app (see its `Caddyfile`).
+`compose.server.yaml` removes the port of the app, so only Caddy is open to the internet,
+and it connects the app to the Docker network of visit-counter, so Caddy can reach it.
+The links in the page are relative (`api/tracks`, not `/api/tracks`), so they also work under `/lastfm/`.
+
+To put an update online, I commit and push from my laptop, then on the server:
+
+```
+cd ~/lastfm-map
+git pull
+docker compose -f compose.yaml -f compose.server.yaml up -d --build
+```
+
+The `.env` file with the API key was created by hand on the server, it is not on GitHub.
 
 ## How it works
 

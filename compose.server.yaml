@@ -1,0 +1,18 @@
+# Modifications pour le serveur (utilisé avec compose.yaml) :
+#   docker compose -f compose.yaml -f compose.server.yaml up -d --build
+# Le Caddy du projet visit-counter reçoit les visiteurs et envoie /lastfm/ vers ce conteneur.
+services:
+  app:
+    ports: !reset [] # aucun port ouvert sur Internet : seul Caddy en publie
+    restart: unless-stopped
+    networks:
+      default:
+      visit-counter:
+        aliases:
+          - lastfm # nom utilisé dans le Caddyfile : reverse_proxy lastfm:3000
+
+networks:
+  # Réseau déjà créé par le projet visit-counter (là où tourne Caddy)
+  visit-counter:
+    name: visit-counter_default
+    external: true
