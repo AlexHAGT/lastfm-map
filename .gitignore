@@ -1,0 +1,8 @@
+# Secrets : ne jamais les envoyer sur GitHub
+.env
+
+# Dépendances (réinstallées par npm)
+node_modules/
+
+# Notes de travail personnelles (brief pour l'assistant IA)
+CLAUDE.md

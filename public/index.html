@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Indispensable pour que la page s'adapte aux téléphones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What your music looks like</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- La carte : un canvas pour les cases, un autre par-dessus pour les noms -->
+  <div class="zone-carte">
+    <canvas id="carte"></canvas>
+    <canvas id="etiquettes"></canvas>
+
+    <!-- Messages posés sur la carte, seulement quand il le faut (chargement, panne, aucune écoute) -->
+    <p id="bandeau" hidden></p>
+    <p id="statut">Loading map…</p>
+  </div>
+
+  <!-- Frise du temps -->
+  <div class="controles">
+    <button id="lecture" type="button" aria-label="Replay the last 24 hours">▶</button>
+    <input id="curseur" type="range" min="0" max="1440" step="1" value="1440" aria-label="Time of day">
+    <span id="heure">Now</span>
+  </div>
+
+  <!-- Fenêtre affichée au survol d'un territoire -->
+  <div id="infobulle" hidden></div>
+
+  <!-- Ordre important : monde, puis territoires, puis la page -->
+  <script src="monde.js"></script>
+  <script src="territoires.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

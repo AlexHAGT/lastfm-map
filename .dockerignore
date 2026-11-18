@@ -1,0 +1,4 @@
+# Fichiers à ne PAS copier dans l'image Docker
+.env
+node_modules
+.git

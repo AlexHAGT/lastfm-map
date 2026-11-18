@@ -1,0 +1,171 @@
+/* Couleurs de l'interface (la carte a ses propres couleurs dans app.js) */
+:root {
+  --fond: #0e1822;
+  --panneau: #182634;
+  --texte: #e8eef2;
+  --texte-doux: #9db0c0;
+  --accent: #f0b84a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 12px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-family: system-ui, sans-serif;
+  background: var(--fond);
+  color: var(--texte);
+}
+
+/* ----- Carte : la plus grande possible, sans dépasser de l'écran ----- */
+.zone-carte {
+  position: relative;
+  /* largeur max = hauteur de l'écran disponible × 1,6 (la carte fait 160 × 100) */
+  width: min(100%, calc((100vh - 90px) * 1.6));
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#carte {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Agrandit les pixels sans les flouter : de vrais petits carrés */
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+/* Calque des noms : par-dessus la carte, laisse passer la souris */
+#etiquettes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Messages posés au centre de la carte (chargement, erreur, aucune écoute) */
+#statut {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%;
+  margin: 0;
+  padding: 10px 16px;
+  background: rgba(14, 24, 34, 0.85);
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Bandeau « Last.fm ne répond pas » en haut de la carte */
+#bandeau {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  margin: 0;
+  padding: 6px 10px;
+  background: rgba(90, 61, 12, 0.92);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+#statut[hidden],
+#bandeau[hidden] {
+  display: none;
+}
+
+/* ----- Frise du temps (même largeur que la carte) ----- */
+.controles {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(100%, calc((100vh - 90px) * 1.6));
+}
+
+#lecture {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #1a1206;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#curseur {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--accent);
+}
+
+#heure {
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--texte-doux);
+  white-space: nowrap;
+}
+
+/* ----- Fenêtre au survol ----- */
+#infobulle {
+  position: fixed;
+  z-index: 10;
+  width: 240px;
+  padding: 10px;
+  background: rgba(14, 24, 34, 0.95);
+  border: 1px solid #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  font-size: 0.85rem;
+}
+
+#infobulle img,
+#infobulle .sans-pochette {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+#infobulle .sans-pochette {
+  display: grid;
+  place-items: center;
+  background: #2a3a4a;
+  font-size: 3rem;
+}
+
+#infobulle .artiste {
+  margin: 2px 0 6px;
+  color: var(--texte-doux);
+}
+
+#infobulle ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+/* Téléphone : fenêtre un peu plus petite */
+@media (max-width: 600px) {
+  body {
+    padding: 8px;
+  }
+  #infobulle {
+    width: 190px;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "what-your-music-looks-like",
+  "version": "1.0.0",
+  "description": "Mes écoutes Last.fm des dernières 24 h affichées comme une carte de territoires",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
